@@ -1,0 +1,29 @@
+--Create a shirts store database
+
+CREATE TABLE StarWarsShirts (id INTEGER PRIMARY KEY, name TEXT, size TEXT, color TEXT, pricebucket INTEGER, clearance TEXT);
+
+INSERT INTO StarWarsShirts VALUES (1,"BobaDad","XL","Black", 1 , "N");
+INSERT INTO StarWarsShirts VALUES (2,"BobaDad","L","Black", 2 , "N");
+INSERT INTO StarWarsShirts VALUES (3,"BobaDad","M","Black", 3 , "N");
+INSERT INTO StarWarsShirts VALUES (4,"BobaDad","S","Black", 4 , "N");
+INSERT INTO StarWarsShirts VALUES (5,"R2D3","XL","Black", 1 , "N");
+INSERT INTO StarWarsShirts VALUES (6,"R2D3","L","Black", 2 , "N");
+INSERT INTO StarWarsShirts VALUES (7,"R2D3","M","Black", 3 , "N");
+INSERT INTO StarWarsShirts VALUES (8,"R2D3","S","Black", 4 , "N");
+INSERT INTO StarWarsShirts VALUES (9,"Han","XL","Black", 1 , "N");
+INSERT INTO StarWarsShirts VALUES (10,"Han","L","Black", 2 , "N");
+INSERT INTO StarWarsShirts VALUES (11,"Han","M","Black", 3 , "N");
+INSERT INTO StarWarsShirts VALUES (12,"Han","S","Black", 4 , "N");INSERT INTO StarWarsShirts VALUES (13,"Leia","XL","Black", 1 , "N");
+INSERT INTO StarWarsShirts VALUES (14,"Leia","L","Black", 2 , "N");
+INSERT INTO StarWarsShirts VALUES (15,"Leia","M","Black", 3 , "N");
+INSERT INTO StarWarsShirts VALUES (16,"Leia","S","Black", 4 , "N");
+
+-- display the sum of all of the items in all of the price buckets
+SELECT SUM(pricebucket) FROM StarWarsShirts;
+
+-- Show me how many shirt styles have a black background 
+SELECT * FROM StarWarsShirts WHERE color="Black";
+
+-- arrange the shirts for sale based on their price bucket
+SELECT * FROM StarWarsShirts ORDER BY pricebucket;
+
