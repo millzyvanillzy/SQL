@@ -1,0 +1,39 @@
+/* Create table about the artists and their style of artwork */
+
+CREATE table artists and 
+(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, period TEXT, birthYear INTEGER);
+
+INSERT INTO artists (name, period , birthYear) VALUES ("Leonardo da Vinci", "Italian Renaissance", 1452);
+INSERT INTO artists (name, period , birthYear) VALUES ("Michelangelo", "Italian Renaissance", 1475);
+INSERT INTO artists (name, period , birthYear) VALUES ("Rembrandt", "Baroque", 1606);
+INSERT INTO artists (name, period , birthYear) VALUES ("Edouard Manet", "Realism—Impressionism", 1832);
+INSERT INTO artists (name, period , birthYear) VALUES ("Claude Monet", "Impressionism", 1840);
+INSERT INTO artists (name, period , birthYear) VALUES ("Paul Gauguin", "Post-Impressionism", 1848);
+INSERT INTO artists (name, period , birthYear) VALUES (" Georgia O'Keeffe", "Modern Art", 1887);
+INSERT INTO artists (name, period , birthYear) VALUES ("Banksy", "Contemporary Art", 1974);
+
+
+CREATE TABLE influencers
+(id INTEGER PRIMARY KEY AUTOINCREMENT, artist_id INTEGER, influenced_by INTEGER);
+
+INSERT INTO influencers (artist_id, influenced_by) VALUES (8, 7);
+INSERT INTO influencers (artist_id, influenced_by) VALUES (6, 1);
+INSERT INTO influencers (artist_id, influenced_by) VALUES (3, 2);
+INSERT INTO influencers (artist_id, influenced_by) VALUES (6, 4);
+INSERT INTO influencers (artist_id, influenced_by) VALUES (5, 1);
+INSERT INTO influencers (artist_id, influenced_by) VALUES (8, 1);
+INSERT INTO influencers (artist_id, influenced_by) VALUES (4, 2);
+
+
+
+SELECT * FROM artists;
+SELECT * FROM influencers;
+
+/* Show the connection between former artist and period and which later artist was influenced */
+
+SELECT a.name , b.name , a.period
+FROM influencers
+JOIN artists a
+ON influencers.artist_id = a.id
+JOIN artists b
+ON influencers.influenced_by = b.id;
