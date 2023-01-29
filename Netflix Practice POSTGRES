@@ -1,0 +1,6 @@
+SELECT type,director, title, release_year
+FROM "CharlotteChaze/BreakIntoTech"."netflix_people"
+JOIN "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+ON "netflix_people".show_id = "netflix_titles_info".show_id
+WHERE type LIKE 'Movie'
+ORDER BY release_year ASC;
