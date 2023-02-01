@@ -1,0 +1,114 @@
+-- 31-JAN-23
+
+
+/*
+1 - How many orders were placed in January? Remember to filter out the blank and incorrect order IDs like we did in the "dealing with messy data" section of the previous lesson! 
+*/
+
+--SELECT orderdate, orderID, count(orderID) as SALES_count , sum(quantity) as SALES_total
+--FROM JanSales
+--WHERE length(orderID) = 6
+--GROUP BY orderdate
+--ORDER BY orderdate ASC
+
+/*
+2 - How many of those orders were for an iPhone? 
+*/
+
+--SELECT Product, orderID, count(orderID) as SALES_count
+--FROM JanSales
+--WHERE Length(orderID) = 6
+--AND Product like "%iphone%"
+--GROUP BY orderID
+--HAVING SALES_count >= 1
+--ORDER BY SALES_count DESC;
+
+/*
+3 - Select the customer account numbers for all the orders that were placed in February. 
+*/
+
+/*
+SELECT distinct acctnum, orderID, count(orderID) as FebOrderCount, Product, orderdate
+FROM FebSales
+LEFT JOIN customers
+ON FebSales.orderID = customers.order_id
+WHERE LENGTH(orderID) = 6
+GROUP BY orderID
+HAVING FebOrderCount > 0
+ORDER BY acctnum ASC
+;
+*/
+
+/*
+4 - Which product was the cheapest one sold in January, and what was the price? 
+*/
+
+/*
+SELECT MIN(price)as Cheapo , Product
+FROM JanSales
+*/
+
+/*
+5- What is the total revenue for each product sold in January? (Revenue can be calculated using the number of products sold and the price of the products). 
+*/
+
+/*
+-- SELECT Product, Quantity, Price , Quantity*Price as JanRevenue
+SELECT Product, Quantity*Price as JanRevenue
+FROM JanSales
+WHERE Quantity >=1
+AND Product IS NOT NULL
+GROUP BY Product
+HAVING JanRevenue >0
+ORDER BY Product ;
+*/
+
+SELECT sum(quantity)*price as revenue
+,product
+FROM BIT_DB.JanSales
+GROUP BY product
+
+
+/*
+6 - Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+*/
+
+/*
+SELECT *
+FROM FebSales
+WHERE LENGTH(orderID) = 6
+-- AND location LIKE '%548 Lin%'
+ORDER BY location ASC;
+*/
+
+/*
+7- How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers? 
+278 customers ordered more than 2 products, average amount spend $13.82
+*/
+
+/*
+SELECT count(customers.acctnum), sum(FebSales.Quantity*Price) as FebRev , sum(FebSales.Quantity*Price)/count(FebSales.orderID) as FebRevAVG
+FROM FebSales
+JOIN customers
+ON FebSales.orderID = customers.order_id
+WHERE FebSales.quantity > 2
+and length(orderID)=6
+-- GROUP BY acctnum
+ORDER BY customers.acctnum
+*/
+
+
+
+--SELECT customers.acctnum, orderID, Quantity, price
+
+/*
+SELECT *
+FROM FebSales
+--JOIN customers
+--ON FebSales.orderID = customers.order_id
+WHERE FebSales.quantity > 2
+AND LENGTH(orderID)=6
+*/
+
+
+
