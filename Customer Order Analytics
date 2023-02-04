@@ -1,1 +1,15 @@
 
+--List all the products sold in Los Angeles in February, and include how many of each were sold. 
+
+SELECT Distinct Product, SUM(Quantity) as QtySold, location
+FROM BIT_DB.FebSales
+GROUP BY Product
+HAVING location like '%Ange%';
+
+
+--Product     Count    Location
+--27in FHD Monitor	475	723 Wilson St, Los Angeles, CA 90001
+--Bose SoundSport Headphones	844	198 Center St, Los Angeles, CA 90001
+--Flatscreen TV	314	588 1st St, Los Angeles, CA 90001
+--ThinkPad Laptop	277	752 Park St, Los Angeles, CA 90001
+--USB-C Charging Cable	1654	451 2nd St, Los Angeles, CA 90001
