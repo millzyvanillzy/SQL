@@ -1,0 +1,84 @@
+
+  --1 Which locations in New York received at least 3 orders in January, and how many orders did they each receive? (Hint: use HAVING).
+  --2 How many of each type of headphone were sold in February?
+  --3  What was the average amount spent per account in February? (Hints: For this question, we want the average amount spent / number of accounts, not the amount spent by each account. To multiply, you can use the * symbol, and to divide, you can use the / symbol.)
+  --4 What was the average quantity of products purchased per account in February? (Hint: just like question 3, we want the overall average, not the average for each account individually).
+  --5 Which product brought in the most revenue in January and how much revenue did it bring in total? 
+   
+-- #1
+--SELECT location, COUNT(orderID) as Orders 
+--FROM BIT_DB.JanSales
+--WHERE 
+--    LENGTH(orderID)=6
+--    AND
+--    location like '%York%'   
+--GROUP BY location
+--HAVING Orders > 2  
+--ORDER by Orders DESC;
+
+--961 Jefferson St, New York City, NY 10001	4
+--916 Pine St, New York City, NY 10001	3
+--515 Lincoln St, New York City, NY 10001	3
+--148 Elm St, New York City, NY 10001	3
+
+-- #2
+/*
+SELECT Product , SUM(Quantity)
+FROM BIT_DB.FebSales
+WHERE Product like '%headphone%'
+GROUP BY Product;
+*/
+
+--Apple Airpods Headphones	1013
+--Bose SoundSport Headphones  844
+--Wired Headphones	1282
+
+
+-- #3
+
+--SELECT COUNT(acctnum)as count
+/*
+SELECT SUM(Feb.Quantity), FORMAT("%.2f", SUM(Feb.Quantity*Feb.price)), FORMAT("%.2f",SUM(Quantity*price)/count(acctnum)) as average
+FROM BIT_DB.customers cust
+LEFT JOIN BIT_DB.FebSales Feb
+ON cust.order_id = Feb.orderID
+WHERE LENGTH(orderID)=6
+AND orderid <> 'Order ID'
+;
+*/
+
+-- result shows this
+
+--sum(quantity)= 14551 
+--sum(quantity)*price = 2471144.51
+--average = 190.00
+
+-- #4
+
+/*
+SELECT count(acctnum), sum(Feb.Quantity), FORMAT("%.2f" , sum(Feb.Quantity)), FORMAT("%.2f" , count(acctnum)), FORMAT("%.2f" , sum(Feb.Quantity))/FORMAT("%.2f" , count(acctnum))
+FROM BIT_DB.customers cust
+LEFT JOIN BIT_DB.FebSales Feb
+ON cust.order_id = Feb.orderID
+WHERE LENGTH(orderID)=6;
+*/
+
+/*
+count of acctnum is 13,006
+sum(feb.Quantity)=14,551
+average=1.118
+*/
+
+
+-- #5
+
+SELECT Product , sum(quantity*price) as total
+FROM BIT_DB.JanSales
+WHERE length(orderID)=6
+GROUP BY Product
+ORDER by total DESC
+LIMIT 1
+/*
+Macbook Pro Laptop	399500
+*/
+
