@@ -1,0 +1,63 @@
+--Calculate the average popularity for the artists in the Spotify data table. 
+-- Then, for every artist with an average popularity of 90 or above, show their name, their average popularity, and label them as a “Top Star”. 
+
+--This is the TEMPLATE for CTE
+--
+
+/*
+WITH tempTable AS (
+  SELECT
+  EmployeeID, Jobtitle
+  FROM employee_table
+  WHERE LastName IN ('Smith','Jurup','Washington')
+)
+SELECT Jobtitle from tempTable 
+*/
+--Start by creating the SELECT
+--SELECT artist_name, AVG(popularity)
+--FROM SpotifyData
+--GROUP BY artist_name
+--
+-- NOW make the SELECT statement we just tested a CTE and implement it to solve the question
+
+/*
+WITH TopStar AS (
+SELECT artist_name, AVG(popularity) as Pop
+FROM SpotifyData
+GROUP BY artist_name
+)
+SELECT artist_name AS TopStar , Pop FROM TopStar
+WHERE Pop >= 90
+*/
+
+/*
+TopStar           Pop
+Doja Cat	         90.75
+Ed Sheeran	95
+Glass Animals	94
+Harry Styles	90
+Justin Bieber	90
+Lil Nas X	90
+MÃ¥neskin	90.5
+Olivia Rodrigo	92.33333333333333
+The Neighbourhood	92
+The Weeknd	91.5
+*/
+
+-- answer from instructor
+-- 'Top Star' AS tag <-- This adds a new column and attaches a text value for each row that natches the criteria
+
+/*
+WITH popularity_average_CTE AS (
+SELECT s.artist_name,
+AVG(s.popularity) AS average_popularity
+FROM SpotifyData s 
+GROUP BY s.artist_name
+)
+ 
+SELECT  artist_name,
+        average_popularity,
+        'Top Star' AS tag
+FROM popularity_average_CTE
+WHERE average_popularity>=90;
+*/
