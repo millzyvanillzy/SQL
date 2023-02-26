@@ -1,0 +1,90 @@
+
+
+
+SELECT FirstName, LastName, InvoiceID, InvoiceDate, BillingCountry
+FROM customers
+LEFT JOIN invoices
+ON customers.CustomerID = invoices.CustomerId  
+WHERE customers.Country = "Brazil"
+
+SELECT DISTINCT BillingCountry
+FROM chinook.invoices
+GROUP BY BillingCountry
+ORDER BY BillingCountry ASC
+
+SELECT invoices.InvoiceId , invoices.total, customers.FirstName as CustFN , customers.LastName as CustLN , customers.Country , employees.FirstName , employees.LastName
+FROM chinook.invoices
+JOIN chinook.customers ON chinook.invoices.CustomerID = chinook.customers.CustomerId
+JOIN chinook.employees ON chinook.customers.SupportRepId = chinook.employees.EmployeeID
+
+SELECT invoices.InvoiceId , invoices.total, 
+customers.FirstName as CustFN , customers.LastName as CustLN , customers.Country , 
+employees.FirstName as SalesRepFN, employees.LastName as SalesRepLN
+
+FROM chinook.invoices
+JOIN chinook.customers ON chinook.invoices.CustomerID = chinook.customers.CustomerId
+JOIN chinook.employees ON chinook.customers.SupportRepId = chinook.employees.EmployeeID
+
+--What are the total sales for 2009?
+    
+--Write a query that includes the purchased track name with each invoice line ID
+
+--Write a query that includes the purchased track name AND artist name with each invoice line ID.
+    
+--Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre.
+    
+--Show the total sales made by each sales agent.
+    
+--Which sales agent made the most dollars in sales in 2009? 
+
+SELECT invoices.InvoiceId , invoice_items.InvoiceLineId
+FROM chinook.invoices
+JOIN chinook.invoice_items ON chinook.invoices.InvoiceId = chinook.invoice_items.InvoiceId
+JOIN chinook.tracks ON chinook.invoice_items.TrackId = chinook.tracks.TrackId
+
+SELECT invoice_items.InvoiceLineId , tracks.Name , artists.Name
+FROM chinook.invoice_items ii
+JOIN chinook.tracks ON ii.TrackId = chinook.tracks.TrackId
+JOIN albums ON chinook.tracks.AlbumId = albums.AlbumId
+JOIN artists ON albums.ArtistId = artists.ArtistId
+
+SELECT ii.InvoiceLineId , tracks.Name as PurchasedTrackName , artists.Name as ArtistName
+FROM chinook.invoice_items ii
+JOIN chinook.tracks ON ii.TrackId = chinook.tracks.TrackId
+JOIN chinook.albums ON chinook.tracks.AlbumId = chinook.albums.AlbumId
+LEFT JOIN chinook.artists ON chinook.albums.ArtistId = chinook.artists.ArtistId
+ORDER BY ArtistName ASC
+ORDER BY InvoiceLineId ASC
+
+SELECT chinook.genres.Name, chinook.tracks.name , chinook.albums.title , chinook.tracks.MediaTypeId , chinook.media_types.Name
+FROM chinook.tracks
+JOIN chinook.albums ON chinook.tracks.AlbumId = chinook.albums.AlbumId
+JOIN chinook.media_types ON chinook.tracks.MediaTypeId = chinook.media_types.MediaTypeId
+JOIN chinook.genres ON chinook.tracks.GenreId = chinook.genres.GenreId
+
+SELECT worker.EmployeeId , sum(INV.total)
+FROM chinook.employees worker
+JOIN chinook.customers buyer ON worker.EmployeeId = buyer.SupportRepId
+JOIN chinook.invoices INV ON buyer.CustomerId = INV.CustomerId
+GROUP BY worker.EmployeeId
+
+SELECT worker.EmployeeId , worker.LastName, ROUND(sum(INV.total),2) as "Sales"
+FROM chinook.employees worker
+JOIN chinook.customers buyer ON worker.EmployeeId = buyer.SupportRepId
+JOIN chinook.invoices INV ON buyer.CustomerId = INV.CustomerId
+GROUP BY worker.EmployeeId
+HAVING INV.InvoiceDate like "2009%"
+
+SELECT chinook.invoices.CustomerId , chinook.customers.LastName, chinook.customers.FirstName, chinook.invoices.InvoiceDate, SUM(chinook.invoices.Total) AS "Total"
+FROM chinook.invoices
+JOIN chinook.customers ON chinook.invoices.CustomerId = chinook.customers.CustomerId
+GROUP BY chinook.invoices.CustomerId
+HAVING chinook.invoices.InvoiceDate like "%2010%"
+ORDER BY Total DESC LIMIT 3
+
+SELECT SUM(chinook.invoices.Total), chinook.tracks.MediaTypeId, chinook.media_types.Name
+FROM chinook.invoice_items
+JOIN chinook.invoices ON chinook.invoice_items.InvoiceId = chinook.invoices.InvoiceId
+JOIN chinook.tracks ON chinook.invoice_items.TrackId = chinook.tracks.TrackId
+JOIN chinook.media_types ON chinook.tracks.MediaTypeId = chinook.media_types.MediaTypeID
+GROUP BY chinook.tracks.MediaTypeId
