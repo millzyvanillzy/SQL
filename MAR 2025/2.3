@@ -1,0 +1,17 @@
+-- 2.3 SQL Challenge #3 
+--SELECT *	
+--FROM bank_products
+--;
+
+-- This customer is interested in opening a Checking or Savings account, but wants more information on the options. Write another query that uses OR to show the product names that have a Checking OR Savings product type. 
+--	SELECT product_name, product_type	
+--	FROM bank_products
+--    WHERE product_type="Savings"
+--    OR product_type="Checking"
+--    ORDER BY product_type DESC
+;
+-- Write another query that uses AND to show the product names that have a "Savings" product type AND have an interest_rate of at least 0.75, AND have no monthly fee. Include the product name and interest rate in your SELECT statement. 
+	SELECT product_name, interest_rate
+    FROM bank_products
+    ;
+    
