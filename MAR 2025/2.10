@@ -1,0 +1,22 @@
+
+-- Do each of the following at least once:
+
+--    Group the data in a new way using a CASE statement.
+--    Use a HAVING clause to determine something interesting about the data per category.
+--    Use logical operators like AND or OR to filter the data in an interesting way.
+--    Use an aggregate function like AVG, SUM, COUNT, MAX, and/or MIN to return summary statistics about the data.
+    
+-- Group the data in a new way using a CASE statement.
+-- Group by industry by size
+
+SELECT industry , SUM(employees) as employee_total , 
+CASE
+WHEN SUM(employees) > 1000000 THEN 'huge'
+WHEN SUM(employees) > 5000000 THEN 'mid-sized'
+WHEN SUM(employees) > 10000 THEN 'compact'
+ELSE 'startup'
+END AS size
+FROM fortune_companies
+GROUP BY industry
+ORDER By employee_total DESC
+;
