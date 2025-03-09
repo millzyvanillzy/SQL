@@ -1,4 +1,4 @@
-
+-- Assignment 2.10
 -- Do each of the following at least once:
 
 --    Group the data in a new way using a CASE statement.
@@ -9,14 +9,46 @@
 -- Group the data in a new way using a CASE statement.
 -- Group by industry by size
 
-SELECT industry , SUM(employees) as employee_total , 
-CASE
-WHEN SUM(employees) > 1000000 THEN 'huge'
-WHEN SUM(employees) > 5000000 THEN 'mid-sized'
-WHEN SUM(employees) > 10000 THEN 'compact'
-ELSE 'startup'
-END AS size
+--SELECT industry , SUM(employees) as employee_total , 
+--CASE
+--WHEN SUM(employees) > 1000000 THEN 'huge'
+--WHEN SUM(employees) > 5000000 THEN 'mid-sized'
+--WHEN SUM(employees) > 10000 THEN 'compact'
+--ELSE 'startup'
+--END AS size
+--FROM fortune_companies
+--GROUP BY industry
+--ORDER By employee_total DESC
+--;
+
+
+-- Which company has the fewest employees
+--SELECT company_name, min(employees)
+--FROM fortune_companies
+--;
+
+--    Use a HAVING clause to determine something interesting about the data per category.
+-- Which companies have an average employee tenure that is at least 6 years
+--SELECT company_name, avg(avg_employee_tenure) as average
+--FROM fortune_companies
+--GROUP BY company_name
+--HAVING average > 6
+--ORDER BY average DESC
+--;
+
+--    Use logical operators like AND or OR to filter the data in an interesting way.
+-- Show me the companies in the industries of Retail and Energy that have healthcare benefits
+--SELECT company_name, industry, healthcare_benefits
+--FROM fortune_companies
+--WHERE (industry='Retail' OR industry='Healthcare')
+--AND healthcare_benefits='1'
+--ORDER by industry
+--;
+
+--    Use an aggregate function like AVG, SUM, COUNT, MAX, and/or MIN to return summary statistics about the data.
+-- How many companies are included in the table, grouped by Industry?
+SELECT industry, COUNT(company_id) as company_count
 FROM fortune_companies
 GROUP BY industry
-ORDER By employee_total DESC
+ORDER BY company_count DESC
 ;
