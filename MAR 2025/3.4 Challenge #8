@@ -1,0 +1,48 @@
+-- 3.4 Challenge 8
+-- Query #1
+--Select all the customer IDs, customer names, and customer emails, as well as the shipping methods each customer used. 
+--Your results should be in order by customer ID. 
+-- You'll need to know: The sender_ID in the shipments table is related to the customer_id in the customers table.
+
+SELECT 
+cust.customer_id,
+cust.customer_name,
+cust.contact_email,
+shipments.shipping_method
+FROM customers cust
+LEFT JOIN shipments
+ON cust.customer_id = shipments.sender_id
+ORDER BY cust.customer_ID ASC
+;
+-- Query #2
+-- Select all the customer IDs, customer names, customer emails, and shipping methods from the database, 
+-- but only for the customers we have detailed shipping history for (ie, customers for whom we have information in the shipments table). 
+-- Your results should be in order by customer ID. 
+SELECT DISTINCT
+cust.customer_id,
+cust.customer_name,
+cust.contact_email,
+shipments.shipping_method
+FROM customers cust
+INNER JOIN shipments
+ON cust.customer_id = shipments.sender_id
+ORDER BY cust.customer_ID ASC
+;
+
+--Query #3 Instructions
+
+-- Select all the customer IDs, customer names, customer emails, and shipping methods from the database, 
+-- but only for the customers we have detailed shipping history for (ie, customers for whom we have information in the shipments table), and who have only used the 'Standard' shipping method before. 
+-- Your results should be in order by customer ID. 
+
+SELECT DISTINCT
+cust.customer_id,
+cust.customer_name,
+cust.contact_email,
+shipments.shipping_method
+FROM customers cust
+RIGHT JOIN shipments
+ON cust.customer_id = shipments.sender_id
+WHERE shipping_method='Standard'
+ORDER BY cust.customer_ID ASC
+;
