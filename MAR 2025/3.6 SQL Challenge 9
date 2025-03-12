@@ -1,0 +1,50 @@
+-- 3.6 Challenge 9
+
+-- Find the names of all the economics courses that are currently being taught.
+-- SELECT CourseName, Subject
+-- FROM Courses
+-- WHERE Subject="Economics"
+-- AND
+-- Current="Yes"
+-- ;
+-- Part 2 Instructions
+-- Find the titles of the textbooks currently used in the economics courses. 
+-- Your results should include the course name and the textbook name.
+
+--SELECT 
+--CourseName,
+--Textbooks.Title
+--FROM Courses
+--INNER JOIN Textbooks
+--ON Courses.CourseID=Textbooks.CourseID
+--WHERE Subject="Economics"
+--AND
+--Current="Yes"
+--;
+
+--Part 3 Instructions
+--Find the names of the authors who wrote the textbooks. 
+--Your answer should include 
+-- the name of the course, 
+-- the name of the textbook, 
+-- and the name of the author.
+
+SELECT 
+Courses.CourseName
+,Textbooks.Title
+,Author.Name
+
+FROM Courses
+JOIN Textbooks
+ON Courses.CourseID=Textbooks.CourseID
+JOIN AuthorTextbookLink
+ON Textbooks.TextbookID = AuthorTextbookLink.TextbookID
+JOIN Author
+ON AuthorTextbookLink.AuthorID = Author.AuthorID
+
+WHERE Courses.Subject="Economics"
+AND
+Current="Yes"
+ORDER BY Name
+;
+
