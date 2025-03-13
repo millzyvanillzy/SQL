@@ -1,0 +1,78 @@
+-- 3.7 Project 3
+
+-- Try to figure out which attribute you'd use to join the two Netflix tables. How can you see what attributes (aka columns) there are in each table to find out what they have in common?
+
+--SELECT * FROM "netflix_titles_info" LIMIT 3
+--;
+
+
+--SELECT * FROM "netflix_people" LIMIT 3
+--;
+
+--"Show ID" is a good way to connect these two schema
+--The "create table" commands define the attributes of the column headers
+
+--Using the PostgreSQL dialect, write a join to select a few columns from both tables at the same time.
+--SELECT titles.show_id, titles.title, people.director
+--FROM netflix_titles_info titles
+--LEFT JOIN netflix_people people
+--ON titles.show_id = people.show_id
+--ORDER BY show_id
+--LIMIT 5
+--;
+
+--    How many movie titles are there in the database? (movies only, not tv shows)
+--SELECT COUNT(title)
+--FROM "netflix_titles_info"
+--WHERE type='Movie'
+--;
+
+--    When was the most recent batch of tv shows and/or movies added to the database?
+--SELECT date_added, title
+--FROM "netflix_titles_info"
+--ORDER BY date_added DESC
+--LIMIT 10
+--;
+
+
+--   List all the movies and tv shows in alphabetical order.
+--SELECT title, type
+--FROM "netflix_titles_info" net_title
+--ORDER BY title ASC
+--;
+
+--    Who was the Director for the movie The Starling?
+--SELECT 
+--director
+--,title
+--FROM "netflix_titles_info"
+--LEFT JOIN "netflix_people" 
+--ON "netflix_titles_info".show_id = "netflix_people".show_id
+--ORDER BY director."net_people"
+--WHERE title='The Starling'
+--;
+
+
+
+--    What is the oldest movie in the database and what year was it made?
+-- ORDER ASC by release_year and LIMIT 1
+
+SELECT 
+title
+,release_year
+,type
+FROM "netflix_titles_info"
+WHERE type='Movie'
+ORDER BY release_year ASC
+LIMIT 1
+;
+
+-- OR 
+
+SELECT title, release_year
+FROM "netflix_titles_info"
+WHERE type = 'Movie'
+AND release_year <=
+(SELECT MIN(release_year)
+FROM "netflix_titles_info"
+WHERE type = 'Movie'); 
