@@ -1,4 +1,6 @@
 -- 3.7 Project 3
+ SOURCE: This project utilized data from the Netflix database stored at https://www.db-fiddle.com/f/pfsdrKi9cgCDp4Wwb77AF/0
+
 
 -- Try to figure out which attribute you'd use to join the two Netflix tables. How can you see what attributes (aka columns) there are in each table to find out what they have in common?
 
