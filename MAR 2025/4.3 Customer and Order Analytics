@@ -1,0 +1,109 @@
+
+--Question #1
+--How many many unique orders were placed in January? In other words, how many distinct order ids do we have?
+--Remember to filter out the blank and incorrect order IDs like we did in the "dealing with messy data" section of the previous lesson! 
+
+--SELECT count(orderID)
+--FROM BIT_DB.JanSales
+--WHERE length(orderID)=6
+--AND
+--orderID<>"Null"
+--;
+
+--Question #2
+-- How many of those orders were for an iPhone? 
+
+--SELECT COUNT(distinct orderid)
+-- or
+--SELECT orderID, Product
+--FROM BIT_DB.JanSales
+--WHERE length(orderid) = 6
+--AND orderid <> 'Order ID'
+--AND Product LIKE '%iph%'
+; 
+--Question #3
+--Select the customer account numbers for all the orders that were placed in February. 
+-- Connect FebSales to customers by the orderID
+--SELECT 
+--distinct customers.acctnum
+--,FebSales.orderID
+--FROM BIT_DB.FebSales
+--LEFT JOIN  BIT_DB.customers
+--ON FebSales.orderID = customers.order_ID
+--WHERE length(orderID)=6
+--AND orderid<>'Order ID'
+--;
+
+--Question #4
+--Which product was the cheapest one sold in January, and what was the price? 
+
+--SELECT DISTINCT Product, price
+--FROM JanSales
+--ORDER BY price ASC
+--LIMIT 3
+--;
+
+-- alternate
+--SELECT DISTINCT Product, price
+--FROM BIT_DB.JanSales
+--WHERE price IN(Select min(price) FROM BIT_DB.JanSales)
+--;
+
+--Question #5
+-- What is the total revenue for each product sold in January?
+--(Revenue can be calculated using the number of products sold and the price of the products). 
+
+--SELECT product, SUM(Quantity)*Price as totalRev
+--FROM BIT_DB.JanSales
+--WHERE product <> ''
+--GROUP BY product
+-- BY totalRev DESC
+--;
+
+
+--Question #6
+--Which products were sold in February 
+--at 548 Lincoln St, Seattle, WA 98101, 
+--how many of each were sold, 
+--and what was the total revenue? 
+
+--SELECT 
+--orderID
+--,Product
+--,location
+--,quantity
+--,price
+--,SUM(Quantity)*price as rev
+--FROM BIT_DB.FebSales
+--WHERE orderID NOT LIKE ''
+--AND
+--location LIKE '548 Lin%'
+--GROUP BY product
+--ORDER BY location
+--;
+
+--Question #7
+--How many customers ordered more than 2 products at a time in February,
+-- and what was the average amount spent for those customers? 
+
+SELECT
+count(distinct CUST.acctnum) as count
+--,orderID
+--,count(orderID)
+--,Product
+--,Quantity
+--,price
+--,quantity*price
+,AVG(quantity*price)as AvgOrder
+
+FROM BIT_DB.FebSales FEB
+LEFT JOIN BIT_DB.customers CUST
+ON FEB.orderID=CUST.order_ID
+
+WHERE quantity>2
+AND
+orderID not like ''
+AND orderid not like "Or%"
+ORDER BY acctnum
+;
+
