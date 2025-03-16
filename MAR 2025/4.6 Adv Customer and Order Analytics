@@ -1,0 +1,82 @@
+   -- Which locations in New York received at least 3 orders in January, and how many orders did they each receive? (Hint: use HAVING).
+SELECT orderID
+,location
+,Count(orderID)
+FROM BIT_DB.JanSales
+WHERE length(orderID)=6
+AND
+location like "%NY%"
+GROUP BY location
+HAVING count(orderID)>=3
+;
+
+
+
+   -- How many of each type of headphone were sold in February?
+  -- SELECT Product
+  -- ,SUM(quantity)
+ --  FROM BIT_DB.FebSales
+ --  WHERE product LIKE '%phones%'
+--   GROUP BY product
+--   ;
+
+
+   -- What was the average amount spent per account in February? (Hints: For this question, we want the average amount spent / number of accounts, not the amount spent by each account. To multiply, you can use the * symbol, and to divide, you can use the / symbol.)
+  
+--SELECT
+--sum(Quantity*price)/count(customers.acctnum) 
+--FROM BIT_DB.customers
+--JOIN BIT_DB.FebSales
+--ON customers.order_ID = FebSales.orderID
+--WHERE orderID<>'' AND LENGTH(orderID)=6 
+--;
+--Answer obtained is 190.0003
+
+
+
+
+
+
+   -- What was the average quantity of products purchased per account in February? (Hint: just like question 3, we want the overall average, not the average for each account individually).
+--SELECT
+--AVG(quantity)
+--sum(quantity)/count(customers.acctnum)
+--FROM BIT_DB.customers
+--JOIN BIT_DB.FebSales
+--ON customers.order_ID = FebSales.orderID
+--WHERE orderID<>'' AND LENGTH(orderID)=6 
+--;
+--ANSWER obtained ; 1
+
+
+
+
+
+
+   -- Which product brought in the most revenue in January and how much revenue did it bring in total? 
+   
+
+--SELECT 
+--Product
+--, Quantity <-- If I unhide this, it only shows one row
+--, price  <-- If I unhide this, it only shows one row
+--, SUM(Quantity*price) as Rev
+
+--FROM JanSales 
+--WHERE orderID<>'' AND LENGTH(orderID)=6  
+--GROUP By Product
+-- ORDER by Rev DESC
+--LIMIT 1
+--;
+
+-- check ... I can now see the 235 orders for the MPL
+--SELECT
+--OrderID
+--,Product
+--,Quantity
+--,Price
+--FROM JanSales 
+--WHERE orderID<>'' AND LENGTH(orderID)=6  AND Product LIKE '%Macbook%'
+--GROUP By orderID
+--ORDER BY quantity DESC
+--;
