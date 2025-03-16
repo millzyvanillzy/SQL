@@ -1,0 +1,70 @@
+-- This was my first project to take Spotify artist and track data in a CSV format and import the data as a table into SQLite, into an existing database.
+-- I had to run a script to create the table layout:
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+song_key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+song_mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness decimal(8,7) NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL )
+
+-- Next I imported the CSV file into SQLite into the newly created table and checked the result
+-- Now that I had my data in place, I thought of some questions I wanted to answer by analyzing the data:
+
+-- Show all of the Spotify data
+
+--SELECT * 
+--FROM BIT_DB.Spotifydata
+
+
+-- Show the artist name with the most tracks in the db
+--SELECT
+--artist_name 
+--,count(track_ID) as count
+--FROM BIT_DB.Spotifydata
+--GROUP BY artist_name
+--ORDER by count DESC
+--LIMIT 1
+--;
+-- answer: Olivia Rodrigo with 4  <-- Not sure who this is. I think I'll add her to my next track to play irl.
+-- Oh wow .. she has 47M monthly listeners. 
+
+
+
+-- Let's group the tracks into 3 "buckets" for danceability
+-- How should we group the tracks by danceability?
+-- 0 to 0.5 is not very danceable
+-- 0.5 to 0.6 is "somewhat danceable"
+-- 0.6 to 1 is "quite danceable"
+-- Write a SQL expression that shows the number of tracks by group
+--SELECT
+--track_name
+--,danceability
+--COUNT(track_ID) as Count
+--,CASE
+--    WHEN danceability >0.6 THEN 'quite danceable'
+--    WHEN danceability >0.5 THEN 'somewhat danceable'
+--    ELSE 'not very danceable' 
+--END AS bucket
+--FROM Spotifydata
+--GROUP BY bucket
+--ORDER BY Count DESC
+--; 
+
+--Answer:
+--37	quite danceable
+--8	somewhat danceable
+--5	not very danceable
+
