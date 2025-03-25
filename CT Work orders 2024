@@ -1,0 +1,19 @@
+-- After pulling the last 12 months corrective work order list, I wanted to analyze the data and see if I could find some answers to questions related to CT work orders
+
+
+-- Which CT devices had the highest number of work orders
+SELECT CT_name, mfgr, model, count(WO) as WO_count
+FROM CT_WO
+GROUP BY CT_name
+ORDER BY WO_count DESC
+;
+
+
+-- Which Mfgr of CT had the highest number of corrective work orders?
+
+SELECT Mfgr, count(WO)
+FROM CT_WO
+GROUP BY Mfgr
+ORDER BY count(WO) DESC
+;
+
