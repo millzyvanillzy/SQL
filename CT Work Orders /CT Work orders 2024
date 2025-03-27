@@ -17,3 +17,14 @@ GROUP BY Mfgr
 ORDER BY count(WO) DESC
 ;
 
+-- What is missing from work order data is the age of the equipment, to add this in requires a LEFT JOIN through the "control number" from the work orders table to an inventory table
+
+-- Goal is to combine the CT inventory and the work orders so we can see the age of the CT
+-- Use a JOIN by the ControlNum aka CT_Name
+SELECT w.ControlNum, w.EQ_type, w.Model, w.Mfgr, w.WO, i.age
+FROM CT_WO w
+JOIN CT_INVENTORY i
+ON w.ControlNum = i.ControNum
+GROUP BY WO
+ORDER BY ControNum
+;
